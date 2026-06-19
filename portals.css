@@ -448,6 +448,10 @@ body.portal-locked {
     font-size: clamp(26px, 7vw, 40px);
   }
 
+  .pw-content {
+    padding: 0 20px;
+  }
+
   #pwWeb .pw-content {
     flex-direction: column;
     gap: 30px;
@@ -467,5 +471,22 @@ body.portal-locked {
     transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle))) translateX(130px) rotate(calc(var(--angle)));
     font-size: 9px;
     padding: 4px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pw-content {
+    padding: 0 16px;
+  }
+
+  .pw-orbit-ring {
+    width: 260px;
+    height: 260px;
+  }
+
+  .pw-tech {
+    transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle))) translateX(110px) rotate(calc(var(--angle)));
+    font-size: 8px;
+    padding: 3px 8px;
   }
 }

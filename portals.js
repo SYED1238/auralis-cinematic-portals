@@ -160,8 +160,8 @@
   backdrop.addEventListener('click', closePortal);
 
   overlay.addEventListener('click', (e) => {
-    // If the click lands on the backdrop, the world container, or the canvas directly
-    if (e.target === overlay || e.target === backdrop || e.target.classList.contains('pw-canvas') || e.target.classList.contains('portal-world')) {
+    // If the click lands on the backdrop, the world container, the canvas, or the empty content margin area
+    if (e.target === overlay || e.target === backdrop || e.target.classList.contains('pw-canvas') || e.target.classList.contains('portal-world') || e.target.classList.contains('pw-content')) {
       closePortal();
     }
   });

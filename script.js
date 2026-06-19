@@ -249,7 +249,13 @@
     const progress = clamp(sTop / Math.max(sHeight, 1), 0, 1);
 
     if (pathwayProgress) {
-      pathwayProgress.style.width = (progress * 100) + '%';
+      if (window.innerWidth <= 768) {
+        pathwayProgress.style.width = '100%';
+        pathwayProgress.style.height = (progress * 100) + '%';
+      } else {
+        pathwayProgress.style.width = (progress * 100) + '%';
+        pathwayProgress.style.height = '100%';
+      }
     }
 
     checkpoints.forEach((cp, i) => {
