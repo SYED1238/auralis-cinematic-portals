@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Auralis Studio — Cinematic digital experiences, intelligent systems, and unforgettable web design for ambitious brands.">
+  <title>Auralis Studio — Craft Digital Experiences That Feel Like The Future</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="portals.css">
+</head>
+<body>
+
+  <!-- Global Particle Canvas -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Deep Background Layers -->
+  <div class="bg-system">
+    <div class="bg-layer bg-radial-1"></div>
+    <div class="bg-layer bg-radial-2"></div>
+    <div class="bg-layer bg-radial-3"></div>
+    <div class="bg-fog fog-1"></div>
+    <div class="bg-fog fog-2"></div>
+    <div class="bg-fog fog-3"></div>
+    <div class="bg-depth-layer depth-1"></div>
+    <div class="bg-depth-layer depth-2"></div>
+    <div class="bg-depth-layer depth-3"></div>
+  </div>
+
+  <!-- The Giant Arc -->
+  <div class="arc-container" id="arcContainer">
+    <div class="arc-system">
+      <div class="arc-ring ring-outer"></div>
+      <div class="arc-ring ring-mid-outer"></div>
+      <div class="arc-ring ring-mid"></div>
+      <div class="arc-ring ring-mid-inner"></div>
+      <div class="arc-ring ring-inner"></div>
+      <div class="arc-ring ring-core"></div>
+      <div class="arc-bloom bloom-1"></div>
+      <div class="arc-bloom bloom-2"></div>
+      <div class="arc-bloom bloom-3"></div>
+      <div class="arc-haze haze-1"></div>
+      <div class="arc-haze haze-2"></div>
+      <div class="light-streak streak-1"></div>
+      <div class="light-streak streak-2"></div>
+      <div class="light-streak streak-3"></div>
+      <div class="light-streak streak-4"></div>
+      <div class="light-streak streak-5"></div>
+    </div>
+  </div>
+
+  <!-- Lens Glow -->
+  <div class="lens-glow" id="lensGlow"></div>
+
+  <!-- Navigation -->
+  <nav class="nav anim-nav" id="mainNav">
+    <div class="nav-inner">
+      <div class="nav-links">
+        <a href="#" class="nav-link">Work</a>
+        <a href="#" class="nav-link">Services</a>
+        <a href="#" class="nav-link">Studio</a>
+        <a href="#" class="nav-link">Journal</a>
+        <a href="#" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO SECTION ========== -->
+  <main class="hero" id="heroSection">
+    <div class="hero-content">
+      <div class="logo anim-logo" id="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+            <circle cx="24" cy="24" r="20" stroke="url(#logoGrad)" stroke-width="1.5" opacity="0.6"/>
+            <circle cx="24" cy="24" r="12" stroke="url(#logoGrad)" stroke-width="1" opacity="0.4"/>
+            <path d="M24 4 L24 44" stroke="url(#logoGrad)" stroke-width="0.5" opacity="0.3"/>
+            <path d="M4 24 L44 24" stroke="url(#logoGrad)" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="24" cy="24" r="3" fill="url(#logoGrad)" opacity="0.8"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="48" y2="48">
+                <stop offset="0%" stop-color="#a78bfa"/>
+                <stop offset="50%" stop-color="#c084fc"/>
+                <stop offset="100%" stop-color="#e879f9"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="logo-text">AURALIS</span>
+        <span class="logo-sub">STUDIO</span>
+      </div>
+
+      <div class="hero-badge anim-badge" id="heroBadge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Now accepting projects for 2026</span>
+      </div>
+
+      <h1 class="hero-headline anim-headline" id="heroHeadline">
+        <span class="headline-line">
+          <span class="headline-word">Craft</span>
+          <span class="headline-word">Digital</span>
+          <span class="headline-word">Experiences</span>
+        </span>
+        <span class="headline-line line-accent">
+          <span class="headline-word">That</span>
+          <span class="headline-word">Feel</span>
+          <span class="headline-word">Like</span>
+          <span class="headline-word accent-word">The</span>
+          <span class="headline-word accent-word">Future</span>
+        </span>
+      </h1>
+
+      <p class="hero-sub anim-sub" id="heroSub">
+        We design cinematic websites, intelligent systems, and unforgettable<br>
+        digital experiences for ambitious brands.
+      </p>
+
+      <div class="hero-ctas anim-ctas" id="heroCtas">
+        <a href="#" class="cta cta-primary" id="ctaPrimary">
+          <span class="cta-text">Start Your Project</span>
+          <span class="cta-arrow"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="cta-glow"></span>
+        </a>
+        <a href="#" class="cta cta-secondary" id="ctaSecondary">
+          <span class="cta-text">View Portfolio</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Showcase Panel -->
+    <div class="showcase-panel anim-panel" id="showcasePanel">
+      <div class="panel-glass">
+        <div class="panel-reflection"></div>
+        <div class="panel-content">
+          <div class="panel-chrome">
+            <div class="chrome-dots">
+              <span class="chrome-dot dot-red"></span>
+              <span class="chrome-dot dot-yellow"></span>
+              <span class="chrome-dot dot-green"></span>
+            </div>
+            <div class="chrome-url"><span class="chrome-lock">🔒</span><span>auralis.studio/showcase</span></div>
+          </div>
+          <div class="panel-mockup">
+            <div class="mockup-hero">
+              <div class="mockup-nav"><div class="mockup-logo-block"></div><div class="mockup-nav-items"><div class="mockup-nav-item"></div><div class="mockup-nav-item"></div><div class="mockup-nav-item"></div></div></div>
+              <div class="mockup-content-area">
+                <div class="mockup-tag"></div>
+                <div class="mockup-title-line line-1"></div>
+                <div class="mockup-title-line line-2"></div>
+                <div class="mockup-subtitle"></div>
+                <div class="mockup-cta-row"><div class="mockup-cta-btn primary-btn"></div><div class="mockup-cta-btn secondary-btn"></div></div>
+              </div>
+              <div class="mockup-card card-1"><div class="card-icon"></div><div class="card-lines"><div class="card-line"></div><div class="card-line short"></div></div></div>
+              <div class="mockup-card card-2"><div class="card-metric"><div class="metric-value"></div><div class="metric-bar"><div class="metric-fill"></div></div></div></div>
+              <div class="mockup-card card-3"><div class="card-graph"><svg viewBox="0 0 100 40" class="graph-svg"><path d="M0 35 Q15 30 25 20 T50 15 T75 10 T100 5" stroke="url(#graphGrad)" stroke-width="2" fill="none" class="graph-line"/><path d="M0 35 Q15 30 25 20 T50 15 T75 10 T100 5 L100 40 L0 40 Z" fill="url(#graphFill)" class="graph-area"/><defs><linearGradient id="graphGrad" x1="0" y1="0" x2="100" y2="0"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#e879f9"/></linearGradient><linearGradient id="graphFill" x1="0" y1="0" x2="0" y2="40"><stop offset="0%" stop-color="rgba(167,139,250,0.3)"/><stop offset="100%" stop-color="rgba(167,139,250,0)"/></linearGradient></defs></svg></div></div>
+              <div class="panel-orb orb-1"></div>
+              <div class="panel-orb orb-2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-edge-light edge-top"></div>
+        <div class="panel-edge-light edge-left"></div>
+        <div class="panel-edge-light edge-right"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== SECTION 01 — LIVING PORTFOLIO UNIVERSE ========== -->
+  <section class="s s-portfolio" id="sPortfolio" data-section="portfolio">
+    <div class="s-glow-bg portfolio-glow"></div>
+    <div class="s-header reveal" data-reveal>
+      <span class="s-label">01 — Selected Work</span>
+      <h2 class="s-title">Living Portfolio<br><span class="gradient-text">Universe</span></h2>
+      <p class="s-desc">Each project is a world unto itself. Explore the constellations of our craft.</p>
+    </div>
+    <div class="orbit-viewport">
+      <div class="orbit-core">
+        <div class="core-ring core-ring-1"></div>
+        <div class="core-ring core-ring-2"></div>
+        <div class="core-ring core-ring-3"></div>
+        <div class="core-dot"></div>
+      </div>
+      <div class="orbit-stage" id="orbitStage">
+        <!-- Monolith 1 -->
+        <div class="monolith" data-monolith="0">
+          <div class="monolith-glass">
+            <div class="monolith-screen">
+              <div class="mono-mock-nav"><div class="mm-logo"></div><div class="mm-links"><span></span><span></span><span></span></div></div>
+              <div class="mono-mock-hero"><div class="mm-badge"></div><div class="mm-h1"></div><div class="mm-h1 short"></div><div class="mm-p"></div><div class="mm-cta"></div></div>
+              <div class="mono-mock-accent accent-blue"></div>
+            </div>
+            <div class="monolith-info">
+              <span class="mono-cat">Fintech Platform</span>
+              <h3 class="mono-name">Nebula Finance</h3>
+              <p class="mono-desc">AI-powered wealth management dashboard with real-time market intelligence.</p>
+              <div class="mono-metrics"><span class="mono-metric"><strong>340%</strong> ROI Increase</span><span class="mono-metric"><strong>2.1M</strong> Users</span></div>
+            </div>
+            <div class="monolith-edge-glow"></div>
+          </div>
+          <div class="monolith-shadow"></div>
+        </div>
+        <!-- Monolith 2 -->
+        <div class="monolith" data-monolith="1">
+          <div class="monolith-glass">
+            <div class="monolith-screen">
+              <div class="mono-mock-nav"><div class="mm-logo"></div><div class="mm-links"><span></span><span></span><span></span></div></div>
+              <div class="mono-mock-hero"><div class="mm-badge"></div><div class="mm-h1"></div><div class="mm-h1 short"></div><div class="mm-p"></div><div class="mm-cta"></div></div>
+              <div class="mono-mock-accent accent-purple"></div>
+            </div>
+            <div class="monolith-info">
+              <span class="mono-cat">Healthcare</span>
+              <h3 class="mono-name">Quantum Health</h3>
+              <p class="mono-desc">Next-generation telemedicine platform with predictive diagnostics engine.</p>
+              <div class="mono-metrics"><span class="mono-metric"><strong>98%</strong> Accuracy</span><span class="mono-metric"><strong>500K</strong> Patients</span></div>
+            </div>
+            <div class="monolith-edge-glow"></div>
+          </div>
+          <div class="monolith-shadow"></div>
+        </div>
+        <!-- Monolith 3 -->
+        <div class="monolith" data-monolith="2">
+          <div class="monolith-glass">
+            <div class="monolith-screen">
+              <div class="mono-mock-nav"><div class="mm-logo"></div><div class="mm-links"><span></span><span></span><span></span></div></div>
+              <div class="mono-mock-hero"><div class="mm-badge"></div><div class="mm-h1"></div><div class="mm-h1 short"></div><div class="mm-p"></div><div class="mm-cta"></div></div>
+              <div class="mono-mock-accent accent-rose"></div>
+            </div>
+            <div class="monolith-info">
+              <span class="mono-cat">Luxury Automotive</span>
+              <h3 class="mono-name">Eclipse Motors</h3>
+              <p class="mono-desc">Cinematic configurator and immersive showroom for electric supercars.</p>
+              <div class="mono-metrics"><span class="mono-metric"><strong>4.2x</strong> Engagement</span><span class="mono-metric"><strong>$180M</strong> Revenue</span></div>
+            </div>
+            <div class="monolith-edge-glow"></div>
+          </div>
+          <div class="monolith-shadow"></div>
+        </div>
+        <!-- Monolith 4 -->
+        <div class="monolith" data-monolith="3">
+          <div class="monolith-glass">
+            <div class="monolith-screen">
+              <div class="mono-mock-nav"><div class="mm-logo"></div><div class="mm-links"><span></span><span></span><span></span></div></div>
+              <div class="mono-mock-hero"><div class="mm-badge"></div><div class="mm-h1"></div><div class="mm-h1 short"></div><div class="mm-p"></div><div class="mm-cta"></div></div>
+              <div class="mono-mock-accent accent-teal"></div>
+            </div>
+            <div class="monolith-info">
+              <span class="mono-cat">E-Commerce</span>
+              <h3 class="mono-name">Stellar Commerce</h3>
+              <p class="mono-desc">Headless commerce architecture with AI personalization and AR try-on.</p>
+              <div class="mono-metrics"><span class="mono-metric"><strong>67%</strong> Conv. Rate↑</span><span class="mono-metric"><strong>$2.4B</strong> GMV</span></div>
+            </div>
+            <div class="monolith-edge-glow"></div>
+          </div>
+          <div class="monolith-shadow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 02 — SERVICES DIMENSION ========== -->
+  <section class="s s-services" id="sServices" data-section="services">
+    <div class="s-glow-bg services-glow"></div>
+    <div class="s-header reveal" data-reveal>
+      <span class="s-label">02 — Capabilities</span>
+      <h2 class="s-title">Enter The<br><span class="gradient-text">Services Dimension</span></h2>
+      <p class="s-desc">Four realms of expertise. Each a world of infinite possibility.</p>
+    </div>
+    <div class="portals-grid">
+      <div class="portal" data-portal="web" data-reveal>
+        <div class="portal-atmosphere">
+          <div class="portal-particles p-light"></div>
+        </div>
+        <div class="portal-frame">
+          <div class="portal-depth"></div>
+          <div class="portal-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" class="portal-icon"><rect x="4" y="4" width="32" height="24" rx="4" stroke="url(#pGrad1)" stroke-width="1.5"/><line x1="4" y1="12" x2="36" y2="12" stroke="url(#pGrad1)" stroke-width="1"/><circle cx="8" cy="8" r="1.5" fill="#a78bfa"/><circle cx="13" cy="8" r="1.5" fill="#c084fc"/><circle cx="18" cy="8" r="1.5" fill="#e879f9"/><rect x="14" y="32" width="12" height="4" rx="2" stroke="url(#pGrad1)" stroke-width="1"/><defs><linearGradient id="pGrad1" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#e879f9"/></linearGradient></defs></svg>
+          </div>
+          <h3 class="portal-title">Web Experiences</h3>
+          <p class="portal-desc">Cinematic websites and platforms that captivate, convert, and define industries.</p>
+          <div class="portal-tags"><span>Next.js</span><span>WebGL</span><span>Motion</span></div>
+          <div class="portal-edge-light"></div>
+        </div>
+      </div>
+      <div class="portal" data-portal="ai" data-reveal>
+        <div class="portal-atmosphere">
+          <div class="portal-particles p-energy"></div>
+        </div>
+        <div class="portal-frame">
+          <div class="portal-depth"></div>
+          <div class="portal-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" class="portal-icon"><circle cx="20" cy="20" r="8" stroke="url(#pGrad2)" stroke-width="1.5"/><circle cx="20" cy="20" r="3" fill="url(#pGrad2)" opacity="0.6"/><path d="M20 4v8M20 28v8M4 20h8M28 20h8M8.5 8.5l5.5 5.5M26 26l5.5 5.5M31.5 8.5l-5.5 5.5M14 26l-5.5 5.5" stroke="url(#pGrad2)" stroke-width="1" opacity="0.5"/><defs><linearGradient id="pGrad2" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#c084fc"/><stop offset="1" stop-color="#818cf8"/></linearGradient></defs></svg>
+          </div>
+          <h3 class="portal-title">AI Systems</h3>
+          <p class="portal-desc">Intelligent architectures that learn, adapt, and transform business operations at scale.</p>
+          <div class="portal-tags"><span>LLMs</span><span>ML Ops</span><span>RAG</span></div>
+          <div class="portal-edge-light"></div>
+        </div>
+      </div>
+      <div class="portal" data-portal="brand" data-reveal>
+        <div class="portal-atmosphere">
+          <div class="portal-particles p-glass"></div>
+        </div>
+        <div class="portal-frame">
+          <div class="portal-depth"></div>
+          <div class="portal-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" class="portal-icon"><path d="M20 4L36 14v12L20 36 4 26V14L20 4z" stroke="url(#pGrad3)" stroke-width="1.5"/><path d="M20 4v32M4 14l16 8 16-8M4 26l16-8 16 8" stroke="url(#pGrad3)" stroke-width="0.8" opacity="0.4"/><defs><linearGradient id="pGrad3" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#e879f9"/><stop offset="1" stop-color="#f472b6"/></linearGradient></defs></svg>
+          </div>
+          <h3 class="portal-title">Brand Identity</h3>
+          <p class="portal-desc">Visual languages that transcend aesthetics and become cultural movements.</p>
+          <div class="portal-tags"><span>Strategy</span><span>Design</span><span>Systems</span></div>
+          <div class="portal-edge-light"></div>
+        </div>
+      </div>
+      <div class="portal" data-portal="dev" data-reveal>
+        <div class="portal-atmosphere">
+          <div class="portal-particles p-arch"></div>
+        </div>
+        <div class="portal-frame">
+          <div class="portal-depth"></div>
+          <div class="portal-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" class="portal-icon"><rect x="6" y="8" width="28" height="24" rx="3" stroke="url(#pGrad4)" stroke-width="1.5"/><path d="M14 18l-4 4 4 4M26 18l4 4-4 4M22 16l-4 12" stroke="url(#pGrad4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="pGrad4" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#818cf8"/><stop offset="1" stop-color="#6ee7b7"/></linearGradient></defs></svg>
+          </div>
+          <h3 class="portal-title">Custom Development</h3>
+          <p class="portal-desc">Engineered systems built for performance, scale, and long-term evolution.</p>
+          <div class="portal-tags"><span>APIs</span><span>Cloud</span><span>DevOps</span></div>
+          <div class="portal-edge-light"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 03 — PROCESS TIMELINE ========== -->
+  <section class="s s-process" id="sProcess" data-section="process">
+    <div class="s-glow-bg process-glow"></div>
+    <div class="s-header reveal" data-reveal>
+      <span class="s-label">03 — The Journey</span>
+      <h2 class="s-title">A Path Through<br><span class="gradient-text">Creation</span></h2>
+      <p class="s-desc">Five stages. One relentless pursuit of extraordinary.</p>
+    </div>
+    <div class="pathway-viewport">
+      <div class="pathway-track" id="pathwayTrack">
+        <div class="pathway-line">
+          <div class="pathway-progress" id="pathwayProgress"></div>
+        </div>
+        <div class="checkpoint" data-step="0">
+          <div class="cp-marker"><div class="cp-ring"></div><div class="cp-dot"></div><div class="cp-pulse"></div></div>
+          <div class="cp-content">
+            <span class="cp-num">01</span>
+            <h3 class="cp-title">Discover</h3>
+            <p class="cp-desc">Deep immersion into your vision, audience, and competitive landscape. We listen before we create.</p>
+          </div>
+        </div>
+        <div class="checkpoint" data-step="1">
+          <div class="cp-marker"><div class="cp-ring"></div><div class="cp-dot"></div><div class="cp-pulse"></div></div>
+          <div class="cp-content">
+            <span class="cp-num">02</span>
+            <h3 class="cp-title">Strategize</h3>
+            <p class="cp-desc">Architecture of intent. Every decision mapped to measurable outcomes and emotional resonance.</p>
+          </div>
+        </div>
+        <div class="checkpoint" data-step="2">
+          <div class="cp-marker"><div class="cp-ring"></div><div class="cp-dot"></div><div class="cp-pulse"></div></div>
+          <div class="cp-content">
+            <span class="cp-num">03</span>
+            <h3 class="cp-title">Design</h3>
+            <p class="cp-desc">Where vision becomes visual. Pixel-perfect craft that speaks louder than words ever could.</p>
+          </div>
+        </div>
+        <div class="checkpoint" data-step="3">
+          <div class="cp-marker"><div class="cp-ring"></div><div class="cp-dot"></div><div class="cp-pulse"></div></div>
+          <div class="cp-content">
+            <span class="cp-num">04</span>
+            <h3 class="cp-title">Build</h3>
+            <p class="cp-desc">Engineering excellence. Code that performs, scales, and adapts to the unknown future.</p>
+          </div>
+        </div>
+        <div class="checkpoint" data-step="4">
+          <div class="cp-marker"><div class="cp-ring"></div><div class="cp-dot"></div><div class="cp-pulse"></div></div>
+          <div class="cp-content">
+            <span class="cp-num">05</span>
+            <h3 class="cp-title">Launch</h3>
+            <p class="cp-desc">Ignition. Your product enters the world — optimized, monitored, and ready to dominate.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 04 — CLIENT RESULTS CHAMBER ========== -->
+  <section class="s s-results" id="sResults" data-section="results">
+    <div class="s-glow-bg results-glow"></div>
+    <div class="s-header reveal" data-reveal>
+      <span class="s-label">04 — Impact</span>
+      <h2 class="s-title">The Results<br><span class="gradient-text">Chamber</span></h2>
+    </div>
+    <div class="chamber">
+      <div class="chamber-core">
+        <div class="chamber-core-ring r1"></div>
+        <div class="chamber-core-ring r2"></div>
+        <div class="chamber-core-ring r3"></div>
+        <div class="chamber-core-dot"></div>
+      </div>
+      <div class="chamber-orbit">
+        <div class="stat-sphere" data-stat-target="150" data-stat-suffix="+">
+          <div class="sphere-glow"></div>
+          <div class="stat-num">0</div>
+          <div class="stat-label">Projects<br>Delivered</div>
+        </div>
+        <div class="stat-sphere" data-stat-target="98" data-stat-suffix="%">
+          <div class="sphere-glow"></div>
+          <div class="stat-num">0</div>
+          <div class="stat-label">Client<br>Satisfaction</div>
+        </div>
+        <div class="stat-sphere" data-stat-target="14" data-stat-suffix="">
+          <div class="sphere-glow"></div>
+          <div class="stat-num">0</div>
+          <div class="stat-label">Design<br>Awards</div>
+        </div>
+        <div class="stat-sphere" data-stat-target="24" data-stat-suffix="B">
+          <div class="sphere-glow"></div>
+          <div class="stat-num">0</div>
+          <div class="stat-label">Revenue<br>Generated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 05 — IMMERSIVE TESTIMONIALS ========== -->
+  <section class="s s-testimonials" id="sTestimonials" data-section="testimonials">
+    <div class="s-glow-bg testimonials-glow"></div>
+    <div class="s-header reveal" data-reveal>
+      <span class="s-label">05 — Voices</span>
+      <h2 class="s-title">Holographic<br><span class="gradient-text">Memories</span></h2>
+      <p class="s-desc">Stories from those who dared to dream differently.</p>
+    </div>
+    <div class="holo-field">
+      <div class="holo-memory" data-reveal>
+        <div class="memory-glass">
+          <div class="memory-wave-bar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <blockquote class="memory-quote">"Auralis didn't build us a website. They built us a universe. Our conversion rate tripled in the first month. The experience they crafted is nothing short of breathtaking."</blockquote>
+          <div class="memory-author">
+            <div class="author-avatar av-1"></div>
+            <div class="author-info"><strong>Sarah Chen</strong><span>CTO, NovaTech Industries</span></div>
+          </div>
+          <div class="memory-glow"></div>
+        </div>
+      </div>
+      <div class="holo-memory" data-reveal>
+        <div class="memory-glass">
+          <div class="memory-wave-bar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <blockquote class="memory-quote">"Working with Auralis felt like collaborating with artists from the future. Every pixel, every interaction — it all serves a higher purpose. Truly exceptional work."</blockquote>
+          <div class="memory-author">
+            <div class="author-avatar av-2"></div>
+            <div class="author-info"><strong>Marcus Rivera</strong><span>Founder, Eclipse Ventures</span></div>
+          </div>
+          <div class="memory-glow"></div>
+        </div>
+      </div>
+      <div class="holo-memory" data-reveal>
+        <div class="memory-glass">
+          <div class="memory-wave-bar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <blockquote class="memory-quote">"They transformed our brand from invisible to unforgettable. The AI integration alone saved us 2,000 engineering hours. Auralis operates on a completely different level."</blockquote>
+          <div class="memory-author">
+            <div class="author-avatar av-3"></div>
+            <div class="author-info"><strong>Elena Volkov</strong><span>CMO, Quantum Dynamics</span></div>
+          </div>
+          <div class="memory-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 06 — DIGITAL SHOWCASE WALL ========== -->
+  <section class="s s-showcase" id="sShowcase" data-section="showcase">
+    <div class="s-glow-bg showcase-glow-bg"></div>
+    <div class="s-header reveal" data-reveal>
+      <span class="s-label">06 — Exhibition</span>
+      <h2 class="s-title">The Digital<br><span class="gradient-text">Showcase Wall</span></h2>
+    </div>
+    <div class="wall-viewport">
+      <div class="wall-track" id="wallTrack">
+        <div class="wall-item">
+          <div class="wall-card">
+            <div class="wall-screen"><div class="ws-gradient g1"></div><div class="ws-ui"><div class="ws-bar"></div><div class="ws-block b1"></div><div class="ws-block b2"></div><div class="ws-circle"></div></div></div>
+            <div class="wall-label"><span class="wl-cat">Brand Experience</span><h4>Aurora Cosmetics</h4></div>
+          </div>
+        </div>
+        <div class="wall-item">
+          <div class="wall-card">
+            <div class="wall-screen"><div class="ws-gradient g2"></div><div class="ws-ui"><div class="ws-bar"></div><div class="ws-block b1"></div><div class="ws-block b2"></div><div class="ws-circle"></div></div></div>
+            <div class="wall-label"><span class="wl-cat">SaaS Platform</span><h4>Nexus Analytics</h4></div>
+          </div>
+        </div>
+        <div class="wall-item">
+          <div class="wall-card">
+            <div class="wall-screen"><div class="ws-gradient g3"></div><div class="ws-ui"><div class="ws-bar"></div><div class="ws-block b1"></div><div class="ws-block b2"></div><div class="ws-circle"></div></div></div>
+            <div class="wall-label"><span class="wl-cat">Mobile App</span><h4>Prism Health</h4></div>
+          </div>
+        </div>
+        <div class="wall-item">
+          <div class="wall-card">
+            <div class="wall-screen"><div class="ws-gradient g4"></div><div class="ws-ui"><div class="ws-bar"></div><div class="ws-block b1"></div><div class="ws-block b2"></div><div class="ws-circle"></div></div></div>
+            <div class="wall-label"><span class="wl-cat">AI Dashboard</span><h4>Cortex Systems</h4></div>
+          </div>
+        </div>
+        <div class="wall-item">
+          <div class="wall-card">
+            <div class="wall-screen"><div class="ws-gradient g5"></div><div class="ws-ui"><div class="ws-bar"></div><div class="ws-block b1"></div><div class="ws-block b2"></div><div class="ws-circle"></div></div></div>
+            <div class="wall-label"><span class="wl-cat">E-Commerce</span><h4>Void Apparel</h4></div>
+          </div>
+        </div>
+        <div class="wall-item">
+          <div class="wall-card">
+            <div class="wall-screen"><div class="ws-gradient g6"></div><div class="ws-ui"><div class="ws-bar"></div><div class="ws-block b1"></div><div class="ws-block b2"></div><div class="ws-circle"></div></div></div>
+            <div class="wall-label"><span class="wl-cat">Web3 Platform</span><h4>Ether Gallery</h4></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 07 — FINAL CONVERSION ========== -->
+  <section class="s s-final" id="sFinal" data-section="final">
+    <canvas id="convergenceCanvas"></canvas>
+    <div class="final-glow-system">
+      <div class="final-radial r1"></div>
+      <div class="final-radial r2"></div>
+      <div class="final-radial r3"></div>
+    </div>
+    <div class="final-content" data-reveal>
+      <div class="final-emblem">
+        <svg viewBox="0 0 120 120" fill="none" class="emblem-svg">
+          <circle cx="60" cy="60" r="50" stroke="url(#embGrad)" stroke-width="1" opacity="0.3" class="emblem-ring e-r1"/>
+          <circle cx="60" cy="60" r="38" stroke="url(#embGrad)" stroke-width="1.5" opacity="0.5" class="emblem-ring e-r2"/>
+          <circle cx="60" cy="60" r="26" stroke="url(#embGrad)" stroke-width="2" opacity="0.7" class="emblem-ring e-r3"/>
+          <circle cx="60" cy="60" r="8" fill="url(#embGrad)" opacity="0.9" class="emblem-core"/>
+          <line x1="60" y1="10" x2="60" y2="110" stroke="url(#embGrad)" stroke-width="0.5" opacity="0.2"/>
+          <line x1="10" y1="60" x2="110" y2="60" stroke="url(#embGrad)" stroke-width="0.5" opacity="0.2"/>
+          <defs>
+            <linearGradient id="embGrad" x1="0" y1="0" x2="120" y2="120">
+              <stop stop-color="#a78bfa"/><stop offset="0.5" stop-color="#c084fc"/><stop offset="1" stop-color="#e879f9"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h2 class="final-headline">Ready To Build Something<br><span class="gradient-text">Extraordinary?</span></h2>
+      <p class="final-sub">Let's craft a digital experience that transcends expectations<br>and defines the future of your brand.</p>
+      <a href="#" class="final-cta" id="finalCta">
+        <span class="final-cta-text">Let's Create Together</span>
+        <span class="final-cta-glow"></span>
+        <span class="final-cta-ripple"></span>
+      </a>
+      <div class="final-footer">
+        <span>hello@auralis.studio</span>
+        <span class="ff-sep">·</span>
+        <span>London · New York · Tokyo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTAL EXPERIENCE OVERLAY ========== -->
+  <div class="portal-overlay" id="portalOverlay">
+    <div class="portal-backdrop" id="portalBackdrop"></div>
+    <button class="portal-close-btn" id="portalCloseBtn" aria-label="Close experience">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <!-- Web Experiences World -->
+    <div class="portal-world" data-world="web" id="pwWeb">
+      <canvas class="pw-canvas"></canvas>
+      <div class="pw-content">
+        <div class="pw-text-side">
+          <h2 class="pw-title">Auralis Signature<br><span class="gradient-text">Web Experiences</span></h2>
+          <p class="pw-subtitle">Cinematic websites and platforms that captivate, convert, and define entire industries.</p>
+        </div>
+        <div class="pw-assembler">
+          <div class="as-browser">
+            <div class="as-chrome"><span></span><span></span><span></span></div>
+            <div class="as-viewport">
+              <div class="as-piece" style="transition-delay:0.8s">
+                <div class="as-nav-bar"><div class="as-nav-logo"></div><div class="as-nav-links"><div class="as-nav-link"></div><div class="as-nav-link"></div><div class="as-nav-link"></div></div></div>
+              </div>
+              <div class="as-piece" style="transition-delay:1.2s">
+                <div class="as-hero-section"><div class="as-hero-badge"></div><div class="as-hero-h1"></div><div class="as-hero-h1"></div><div class="as-hero-p"></div><div class="as-hero-cta"></div></div>
+              </div>
+              <div class="as-piece" style="transition-delay:1.7s">
+                <div class="as-grid"><div class="as-card-block"></div><div class="as-card-block"></div></div>
+              </div>
+              <div class="as-piece" style="transition-delay:2.2s">
+                <div class="as-section-bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pw-orbit-ring">
+          <span class="pw-tech" style="--angle:0deg">Next.js</span>
+          <span class="pw-tech" style="--angle:60deg">Three.js</span>
+          <span class="pw-tech" style="--angle:120deg">WebGL</span>
+          <span class="pw-tech" style="--angle:180deg">Motion</span>
+          <span class="pw-tech" style="--angle:240deg">AI</span>
+          <span class="pw-tech" style="--angle:300deg">React</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Systems World -->
+    <div class="portal-world" data-world="ai" id="pwAI">
+      <canvas class="pw-canvas"></canvas>
+      <div class="pw-content">
+        <h2 class="pw-title">Architecting<br><span class="gradient-text">Intelligence</span></h2>
+        <p class="pw-subtitle">Neural architectures that learn, adapt, and transform operations at scale.</p>
+      </div>
+    </div>
+
+    <!-- Brand Identity World -->
+    <div class="portal-world" data-world="brand" id="pwBrand">
+      <canvas class="pw-canvas"></canvas>
+      <div class="pw-content">
+        <h2 class="pw-title">Visual<br><span class="gradient-text">Mastery</span></h2>
+        <p class="pw-subtitle">Brand systems that transcend aesthetics and become cultural movements.</p>
+      </div>
+    </div>
+
+    <!-- Custom Development World -->
+    <div class="portal-world" data-world="dev" id="pwDev">
+      <canvas class="pw-canvas"></canvas>
+      <div class="pw-content">
+        <h2 class="pw-title">Digital<br><span class="gradient-text">Architecture</span></h2>
+        <p class="pw-subtitle">Engineered systems built for performance, scale, and the unknown future.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="portals.js"></script>
+</body>
+</html>
