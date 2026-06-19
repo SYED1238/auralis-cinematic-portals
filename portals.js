@@ -747,7 +747,40 @@
   }
 
   // ============================================================
-  //  DONE — The system is now ready
+  //  FLOATING NAV HIGHLIGHT & SCROLL EFFECTS
   // ============================================================
+  const hoverPill = document.getElementById('navHoverPill');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const navLinksWrap = document.querySelector('.nav-links-wrap');
+  const mainNav = document.getElementById('mainNav');
+
+  if (hoverPill && navLinksWrap) {
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const linkRect = link.getBoundingClientRect();
+        const wrapRect = navLinksWrap.getBoundingClientRect();
+        
+        hoverPill.style.width = linkRect.width + 'px';
+        hoverPill.style.height = linkRect.height + 'px';
+        hoverPill.style.left = (linkRect.left - wrapRect.left) + 'px';
+        hoverPill.style.top = (linkRect.top - wrapRect.top) + 'px';
+        hoverPill.style.opacity = '1';
+      });
+    });
+
+    navLinksWrap.addEventListener('mouseleave', () => {
+      hoverPill.style.opacity = '0';
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    if (mainNav) {
+      if (window.pageYOffset > 50 || document.documentElement.scrollTop > 50) {
+        mainNav.classList.add('nav-scrolled');
+      } else {
+        mainNav.classList.remove('nav-scrolled');
+      }
+    }
+  }, { passive: true });
 
 })();
