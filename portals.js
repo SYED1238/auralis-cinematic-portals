@@ -16,6 +16,8 @@
   let activeWorld = null;
   let worldRaf = null;
   let isOpen = false;
+  let activeCard = null;
+  let worldSpeed = 1.0;
 
   // ── DOM ──
   const overlay = document.getElementById('portalOverlay');
@@ -35,6 +37,8 @@
   function openPortal(portalCard) {
     const portalType = portalCard.dataset.portal;
     const rect = portalCard.getBoundingClientRect();
+    activeCard = portalCard;
+    worldSpeed = 6.0;
 
     // Lock scroll
     document.body.classList.add('portal-locked');
@@ -88,25 +92,53 @@
   }
 
   function closePortal() {
-    if (!isOpen) return;
+    if (!isOpen || !activeCard) return;
 
     const world = document.querySelector('.portal-world.is-active');
     if (world) {
       world.classList.remove('is-revealed');
-
-      setTimeout(() => {
-        world.classList.remove('is-active');
-        destroyWorld(activeWorld);
-        activeWorld = null;
-      }, 600);
     }
 
-    overlay.classList.remove('is-open');
+    const rect = activeCard.getBoundingClientRect();
 
+    // Create phantom at full screen
+    const phantom = document.createElement('div');
+    phantom.className = 'portal-phantom expanded';
+    phantom.style.top = '0';
+    phantom.style.left = '0';
+    phantom.style.width = '100vw';
+    phantom.style.height = '100vh';
+    document.body.appendChild(phantom);
+
+    // Force reflow
+    phantom.offsetHeight;
+
+    // Immediately close overlay and active world behind the phantom
+    overlay.classList.remove('is-open');
+    if (world) {
+      world.classList.remove('is-active');
+      destroyWorld();
+      activeWorld = null;
+    }
+
+    // Shrink phantom back to card location
+    requestAnimationFrame(() => {
+      phantom.classList.remove('expanded');
+      phantom.style.top = rect.top + 'px';
+      phantom.style.left = rect.left + 'px';
+      phantom.style.width = rect.width + 'px';
+      phantom.style.height = rect.height + 'px';
+    });
+
+    // Clean up phantom after transition
     setTimeout(() => {
+      phantom.remove();
       document.body.classList.remove('portal-locked');
-      document.querySelectorAll('.portal.is-activating').forEach(p => p.classList.remove('is-activating'));
-    }, 800);
+      if (activeCard) {
+        activeCard.classList.remove('is-activating');
+        activeCard = null;
+      }
+    }, 950);
 
     isOpen = false;
   }
@@ -126,6 +158,13 @@
 
   closeBtn.addEventListener('click', closePortal);
   backdrop.addEventListener('click', closePortal);
+
+  overlay.addEventListener('click', (e) => {
+    // If the click lands on the backdrop, the world container, or the canvas directly
+    if (e.target === overlay || e.target === backdrop || e.target.classList.contains('pw-canvas') || e.target.classList.contains('portal-world')) {
+      closePortal();
+    }
+  });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && isOpen) closePortal();
@@ -182,15 +221,19 @@
       setTimeout(() => piece.classList.add('built'), 800 + i * 350);
     });
 
+    const orbitRing = worldEl.querySelector('.pw-orbit-ring');
+    let orbitAngle = 0;
+
     function frame() {
       c.clearRect(0, 0, w, h);
+      worldSpeed = lerp(worldSpeed, 1.0, 0.03);
 
       pmouse.x = lerp(pmouse.x, pmouse.tx, 0.05);
       pmouse.y = lerp(pmouse.y, pmouse.ty, 0.05);
 
       for (const p of particles) {
-        p.x += p.vx + (pmouse.x - 0.5) * 0.3;
-        p.y += p.vy;
+        p.x += (p.vx + (pmouse.x - 0.5) * 0.3) * worldSpeed;
+        p.y += p.vy * worldSpeed;
         if (p.y < -10) { p.y = h + 10; p.x = rand(0, w); }
         if (p.x < -10) p.x = w + 10;
         if (p.x > w + 10) p.x = -10;
@@ -199,6 +242,11 @@
         c.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         c.fillStyle = `hsla(${p.hue},60%,70%,${p.opacity})`;
         c.fill();
+      }
+
+      orbitAngle += 0.002 * worldSpeed;
+      if (orbitRing) {
+        orbitRing.style.transform = `rotate(${orbitAngle}rad)`;
       }
 
       // Central glow
@@ -266,6 +314,8 @@
 
     function frame(time) {
       c.clearRect(0, 0, w, h);
+      worldSpeed = lerp(worldSpeed, 1.0, 0.03);
+
       pmouse.x = lerp(pmouse.x, pmouse.tx, 0.04);
       pmouse.y = lerp(pmouse.y, pmouse.ty, 0.04);
 
@@ -274,7 +324,7 @@
 
       // Update nodes
       for (const n of nodes) {
-        n.phase += n.speed;
+        n.phase += n.speed * worldSpeed;
         n.x = n.baseX + Math.sin(n.phase) * 3 + (pmouse.x - 0.5) * 15;
         n.y = n.baseY + Math.cos(n.phase * 0.7) * 3 + (pmouse.y - 0.5) * 10;
 
@@ -318,16 +368,15 @@
 
       // Spawn & update pulses
       pulseTimer++;
-      if (pulseTimer % 8 === 0) spawnPulse();
+      const pulseInterval = worldSpeed > 1.5 ? 1 : 8;
+      if (pulseTimer % pulseInterval === 0) spawnPulse();
 
       for (let i = pulses.length - 1; i >= 0; i--) {
         const p = pulses[i];
-        p.progress += p.speed;
+        p.progress += p.speed * worldSpeed;
         if (p.progress >= 1) { pulses.splice(i, 1); continue; }
-        p.x = lerp(p.x, p.tx, p.speed * 3);
-        p.y = lerp(p.y, p.ty, p.speed * 3);
-        const currentX = p.x + (p.tx - p.x) * 0;
-        const currentY = p.y + (p.ty - p.y) * 0;
+        p.x = lerp(p.x, p.tx, p.speed * 3 * worldSpeed);
+        p.y = lerp(p.y, p.ty, p.speed * 3 * worldSpeed);
 
         c.beginPath();
         c.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -400,6 +449,8 @@
 
     function frame() {
       c.clearRect(0, 0, w, h);
+      worldSpeed = lerp(worldSpeed, 1.0, 0.03);
+
       pmouse.x = lerp(pmouse.x, pmouse.tx, 0.04);
       pmouse.y = lerp(pmouse.y, pmouse.ty, 0.04);
 
@@ -408,8 +459,8 @@
 
       // Draw shapes
       for (const s of shapes) {
-        s.phase += s.driftSpeed;
-        s.rotation += s.rotSpeed;
+        s.phase += s.driftSpeed * worldSpeed;
+        s.rotation += s.rotSpeed * worldSpeed;
 
         // Drift around home
         let targetX = s.homeX + Math.sin(s.phase) * 30;
@@ -424,8 +475,8 @@
           targetY += Math.sin(angle) * force * 80;
         }
 
-        s.x = lerp(s.x, targetX, 0.03);
-        s.y = lerp(s.y, targetY, 0.03);
+        s.x = lerp(s.x, targetX, 0.03 * worldSpeed);
+        s.y = lerp(s.y, targetY, 0.03 * worldSpeed);
 
         c.save();
         c.translate(s.x, s.y);
@@ -476,7 +527,7 @@
       // Draw text fragments
       c.globalAlpha = 1;
       for (const t of textShapes) {
-        t.phase += t.driftSpeed;
+        t.phase += t.driftSpeed * worldSpeed;
         let tx = t.homeX + Math.sin(t.phase) * 20;
         let ty = t.homeY + Math.cos(t.phase * 0.6) * 15;
 
@@ -488,8 +539,8 @@
           ty += Math.sin(angle) * force * 60;
         }
 
-        t.x = lerp(t.x || tx, tx, 0.04);
-        t.y = lerp(t.y || ty, ty, 0.04);
+        t.x = lerp(t.x || tx, tx, 0.04 * worldSpeed);
+        t.y = lerp(t.y || ty, ty, 0.04 * worldSpeed);
 
         c.font = `${t.size}px 'Outfit', sans-serif`;
         c.fillStyle = `rgba(216,180,254,${t.opacity})`;
@@ -569,8 +620,10 @@
     }
 
     function frame(time) {
-      const elapsed = time - startTime;
+      worldSpeed = lerp(worldSpeed, 1.0, 0.03);
+      const elapsed = (time - startTime) * worldSpeed;
       c.clearRect(0, 0, w, h);
+
       pmouse.x = lerp(pmouse.x, pmouse.tx, 0.04);
       pmouse.y = lerp(pmouse.y, pmouse.ty, 0.04);
 
@@ -614,7 +667,7 @@
 
       // Draw clouds
       for (const cl of clouds) {
-        cl.x += cl.speed;
+        cl.x += cl.speed * worldSpeed;
         if (cl.x > w + cl.width) cl.x = -cl.width;
         c.fillStyle = `rgba(139,92,246,${cl.opacity})`;
         c.beginPath();
@@ -626,7 +679,7 @@
       for (const b of buildings) {
         // Animate rise
         if (elapsed > b.delay && b.height < b.targetHeight) {
-          b.height = lerp(b.height, b.targetHeight, 0.03);
+          b.height = lerp(b.height, b.targetHeight, 0.03 * worldSpeed);
         }
         if (b.height < 1) continue;
 
@@ -662,7 +715,7 @@
 
       // Data highway dots
       for (const dot of dataDots) {
-        dot.x += dot.speed;
+        dot.x += dot.speed * worldSpeed;
         if (dot.x > w * 1.5) dot.x = -w * 0.5;
         if (dot.x < -w * 0.5) dot.x = w * 1.5;
 
@@ -675,7 +728,7 @@
         // Trail
         c.beginPath();
         c.moveTo(dot.x, laneY);
-        c.lineTo(dot.x - dot.speed * 8, laneY);
+        c.lineTo(dot.x - dot.speed * 8 * worldSpeed, laneY);
         c.strokeStyle = `rgba(110,231,183,${dot.opacity * 0.3})`;
         c.lineWidth = dot.size * 0.8;
         c.stroke();
